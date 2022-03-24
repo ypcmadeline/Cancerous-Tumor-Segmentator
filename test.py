@@ -3,14 +3,22 @@ import numpy as np
 import math
 from glob import glob
 
-from dataset import read_h5
+from dataset import read_h5, plot_image
+from model import UNet
+from medpy import metric
 
 
 if __name__ == '__main__':
-    model = None # load your model here
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    print(device)
+    model = UNet()
+    model.load_state_dict(torch.load("model.pt"))
+    model = model.to(device)
     patch_size = (112, 112, 80)
     stride_xy = 18
     stride_z = 4
+
+    counter = 0
 
     path_list = glob('./datas/test/*.h5')
     model.eval()
@@ -48,4 +56,13 @@ if __name__ == '__main__':
         
         scores = scores / np.expand_dims(counts, axis=0)
         predictions = np.argmax(scores, axis = 0) # final prediction: [w, h, d]
-        metrics = None
+        plot_image(image,f"data/image/{counter}.jpg")
+        plot_image(label,f"data/label/{counter}.jpg")
+        plot_image(predictions,f"data/output/{counter}.jpg")
+        counter += 1
+        metrics_dc = metric.binary.dc(predictions, label)
+        metrics_jac = metric.binary.jc(predictions, label)
+        metrics_asd = metric.binary.asd(predictions, label)
+        metrics_hd = metric.binary.hd(predictions, label)
+        print(f"Dice: {metrics_dc}, JAC: {metrics_jac},ASD: {metrics_asd}, HD: {metrics_hd}")
+

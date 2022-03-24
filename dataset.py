@@ -11,7 +11,7 @@ def read_h5(path):
     label = data['label'][:]
     return image, label
 
-def plot_image(image):
+def plot_image(image, path):
     n_i, n_j, n_k = image.shape
     # sagittal (left image)
     center_i1 = int((n_i - 1) / 2)
@@ -23,7 +23,7 @@ def plot_image(image):
     fig, axes = plt.subplots(1, len(slices))
     for i, slice in enumerate(slices):
         axes[i].imshow(slice.T, cmap="gray", origin="lower")
-        plt.savefig('foo.jpg')
+        plt.savefig(path)
 
 
 
@@ -31,9 +31,9 @@ class LAHeart(torch.utils.data.Dataset):
     def __init__(self, split='train', transform=None):
         self.image = []
         self.label = []
-        for i in os.listdir(f"datas/{split}"):
+        for idx, i in enumerate(os.listdir(f"datas/{split}")):
             image, label = read_h5(f"datas/{split}/{i}")
-            plot_image(label)
+            # plot_image(label)
             n_i, n_j, n_k = image.shape
             i = random.randint(0, n_i-112)
             j = random.randint(0, n_j-112)

@@ -69,13 +69,9 @@ class UNet(nn.Module):
         enc_f4, _ = self.enc4(x)
 
         x = self.dec1(enc_f4, enc_f3)
-        # print(x.shape)
         x = self.dec2(x, enc_f2)
-        # print(x.shape)
         x = self.dec3(x, enc_f1)
-        # print(x.shape)
         out = self.out_conv(x)
-        # print(out.shape)
         return out
 
 
