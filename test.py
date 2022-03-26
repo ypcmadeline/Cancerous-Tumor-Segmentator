@@ -11,8 +11,11 @@ from medpy import metric
 if __name__ == '__main__':
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(device)
-    model = UNet()
-    model.load_state_dict(torch.load("model.pt"))
+    model = torch.load("model_1.pth")
+    dice = []
+    jac = []
+    asd = []
+    hd = []
     model = model.to(device)
     patch_size = (112, 112, 80)
     stride_xy = 18
@@ -53,7 +56,7 @@ if __name__ == '__main__':
                     # record the predicted scores
                     scores[:, xs:xs+patch_size[0], ys:ys+patch_size[1], zs:zs+patch_size[2]] += out[0, ...]
                     counts[xs:xs+patch_size[0], ys:ys+patch_size[1], zs:zs+patch_size[2]] += 1
-        
+
         scores = scores / np.expand_dims(counts, axis=0)
         predictions = np.argmax(scores, axis = 0) # final prediction: [w, h, d]
         plot_image(image,f"data/image/{counter}.jpg")
@@ -65,4 +68,13 @@ if __name__ == '__main__':
         metrics_asd = metric.binary.asd(predictions, label)
         metrics_hd = metric.binary.hd(predictions, label)
         print(f"Dice: {metrics_dc}, JAC: {metrics_jac},ASD: {metrics_asd}, HD: {metrics_hd}")
+        dice.append(metrics_dc)
+        jac.append(metrics_jac)
+        asd.append(metrics_asd)
+        hd.append(metrics_hd)
+
+    print(f"average dice: {sum(dice)/len(dice)}")
+    print(f"average jac: {sum(jac)/len(jac)}")
+    print(f"average asd: {sum(asd)/len(asd)}")
+    print(f"average hd: {sum(hd)/len(hd)}")
 
