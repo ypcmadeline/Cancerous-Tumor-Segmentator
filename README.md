@@ -1,5 +1,7 @@
 # CT Image Segmentation by 3D UNET
 
+This repository is inspired by https://github.com/lee-zq/3DUNet-Pytorch.
+
 ## Check dependencies:
 - pytorch=1.11.0=py3.9_cuda11.3_cudnn8.2.0_0
 - pytorch-metric-learning=1.2.1
@@ -12,13 +14,14 @@
 - pandas=1.4.1
 
 ## Model
-3D UNet is implemented as the training model. Poor network performance is observed with 4 layers UNet model, with depth being 16, 32, 64, 128 respectively. Therefore, residual connection is added to avoid degradation and results a significant improvement in performance. 
+3D UNet is implemented as the training model. Poor network performance is observed with 4 layers UNet model, with depth being 16, 32, 64, 128 respectively. Therefore, residual connection is added to avoid degradation and results a significant improvement in performance. <br />
+![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/models/unet.png)
 
 ## Data
 Since the train data size is small, data augmentation is implemented to increase variation to the dataset, including random cropping of size (112,112,80), random flipping horizontally and vertically.
 
 ## Training
-To accurately reflect the similarity between the ground-truth label and the predictions, dice loss is implemented. A final weighted loss (0.5*dice loss + 0.5*cross entropy loss) is backpropagated to update the weight. SGD optimizer is used with momentum to avoid being trapped at local minima. Since the training loss converges at an early stage, learning rate decay is applied to the optimizer, smaller update helps it to get closer to the global minima. 
+To accurately reflect the similarity between the ground-truth label and the predictions, dice loss is implemented. A final weighted loss (0.5*dice loss + 0.5*cross entropy loss) is backpropagated to update the weight. SGD optimizer is used with momentum to avoid being trapped at local minima. Since the training loss converges at an early stage, learning rate decay is applied to the optimizer, smaller update helps it to get closer to the global minima. <br />
 Run `python train.py` to launch the training.<br />
 The trained model will be saved as `model_1.pth`.<br />
 Training loss curve will be saved as `loss.jpg`.
@@ -29,12 +32,12 @@ The testing module will load the trained model.<br />
 Test result images will be saved to ``data/output``
 
 ## Result
-The loss plot during training.
+The loss plot during training.<br />
 ![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/models/loss.jpg)
 Segmentation result on test data (2D slices are listed in sagittal, coronal and axial
-order):
-1. label:
+order):<br />
+1. label:<br />
 ![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/data/label/0.jpg)
-2. Prediction:
+2. Prediction:<br />
 ![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/models/outputs/0.jpg)
 
