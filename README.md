@@ -33,7 +33,8 @@ Test result images will be saved to ``data/output``
 
 ## Result
 The loss plot during training.<br />
-![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/models/loss.jpg)
+![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/models/loss.jpg)<br />
+
 Segmentation result on test data (2D slices are listed in sagittal, coronal and axial
 order):<br />
 1. label:<br />
