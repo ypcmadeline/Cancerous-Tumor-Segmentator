@@ -42,7 +42,6 @@ label                      |  Prediction
 ![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/data/label/0.jpg)  |  ![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/models/outputs/0.jpg)
 
 Evaluation Metrics:
-Dice: 0.8856  Jaccard: 0.7947   Average Surface Distance: 2.4237  95% Hausdroff Distance: 40.4351
 | Dice        | Jaccard     | Average Surface Distance | 95% Hausdroff Distance |
 | ----------- | ----------- | ------------------------ | ---------------------- |
 | 0.8856      | 0.7947      | 2.4237                   | 40.4351                |
