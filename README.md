@@ -37,12 +37,12 @@ The loss plot during training.<br />
 
 Segmentation result on test data (2D slices are listed in sagittal, coronal and axial
 order):<br />
-1. label:<br />
-![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/data/label/0.jpg)
-2. Prediction:<br />
-![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/models/outputs/0.jpg)
+label                      |  Prediction
+:-------------------------:|:-------------------------:
+![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/data/label/0.jpg)  |  ![image](https://github.com/ypcmadeline/Image-segmentation-by-UNET/blob/master/models/outputs/0.jpg)
 
 Evaluation Metrics:
 Dice: 0.8856  Jaccard: 0.7947   Average Surface Distance: 2.4237  95% Hausdroff Distance: 40.4351
-
-
+| Dice        | Jaccard     | Average Surface Distance | 95% Hausdroff Distance |
+| ----------- | ----------- | ------------------------ | ---------------------- |
+| 0.8856      | 0.7947      | 2.4237                   | 40.4351                |
